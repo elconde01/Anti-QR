@@ -33,3 +33,22 @@ function renderHistory() {
   });
 }
 
+function exportToCSV() {
+  const history = loadHistory();
+  if (!history.length) return;
+
+  const header = "Fecha,Tipo,Riesgo,Score,Contenido\n";
+  const rows = history.map(h =>
+    `"${h.date}","${h.type}","${h.level}","${h.score}","${h.content.replace(/"/g, '""')}"`
+  ).join("\n");
+
+  const blob = new Blob([header + rows], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "qr_history.csv";
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
