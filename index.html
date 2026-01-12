@@ -14,6 +14,8 @@
 
 <div id="reader"></div>
 
+<button id="scanAgain" class="hidden">Nuevo escaneo</button>
+
 <div id="result" class="hidden">
   <h2>Resultado del análisis</h2>
   <p><strong>Contenido:</strong> <span id="qrContent"></span></p>
@@ -21,8 +23,13 @@
   <ul id="reasons"></ul>
 </div>
 
+<h2>Historial</h2>
+<button id="clearHistory">Limpiar historial</button>
+<ul id="history"></ul>
+
 <script src="js/analyzer.js"></script>
 <script src="js/scanner.js"></script>
+<script src="js/history.js"></script>
 <script src="js/app.js"></script>
 
 </body>
