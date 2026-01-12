@@ -4,9 +4,9 @@ function startScanner(onScan) {
   qrReader.start(
     { facingMode: "environment" },
     { fps: 10, qrbox: 250 },
-    qrText => {
+    text => {
       qrReader.stop();
-      onScan(qrText);
+      onScan(text);
     },
     () => {}
   );
