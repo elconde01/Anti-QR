@@ -14,44 +14,36 @@ function analyzeQR(content) {
 
   if (type !== "URL") {
     return {
-      type,
-      score: 0,
-      level: "Bajo",
-      reasons: [`QR de tipo ${type}. No ejecuta enlaces web.`]
+      type, score: 0, level: "Bajo",
+      reasons: [`QR de tipo ${type}. No abre enlaces web.`]
     };
   }
 
   const url = content.toLowerCase();
 
   if (!url.startsWith("https://")) {
-    score += 20;
-    reasons.push("No utiliza HTTPS");
+    score += 20; reasons.push("No utiliza HTTPS");
   }
 
   if (url.match(/\b\d{1,3}(\.\d{1,3}){3}\b/)) {
-    score += 30;
-    reasons.push("Usa IP directa");
+    score += 30; reasons.push("URL con IP directa");
   }
 
   if (url.match(/bit\.ly|tinyurl|t\.co|cutt\.ly/)) {
-    score += 15;
-    reasons.push("Usa acortador de URL");
+    score += 15; reasons.push("URL acortada");
   }
 
   if (url.includes("xn--")) {
-    score += 30;
-    reasons.push("Punycode detectado");
+    score += 30; reasons.push("Punycode detectado");
   }
 
   if (url.match(/\b(login|verify|account|secure|update)\b/)) {
-    score += 20;
-    reasons.push("Palabras típicas de phishing");
+    score += 20; reasons.push("Palabras típicas de phishing");
   }
 
   const tlds = [".xyz", ".top", ".ru", ".tk", ".click"];
   if (tlds.some(tld => url.includes(tld))) {
-    score += 15;
-    reasons.push("Dominio con TLD sospechoso");
+    score += 15; reasons.push("TLD sospechoso");
   }
 
   let level = "Bajo";
