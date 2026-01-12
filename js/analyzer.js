@@ -17,7 +17,7 @@ function analyzeQR(content) {
       type,
       score: 0,
       level: "Bajo",
-      reasons: [`QR de tipo ${type}. No es un enlace web.`]
+      reasons: [`QR de tipo ${type}. No ejecuta enlaces web.`]
     };
   }
 
@@ -35,7 +35,7 @@ function analyzeQR(content) {
 
   if (url.match(/bit\.ly|tinyurl|t\.co|cutt\.ly/)) {
     score += 15;
-    reasons.push("Usa acortador");
+    reasons.push("Usa acortador de URL");
   }
 
   if (url.includes("xn--")) {
@@ -51,7 +51,7 @@ function analyzeQR(content) {
   const tlds = [".xyz", ".top", ".ru", ".tk", ".click"];
   if (tlds.some(tld => url.includes(tld))) {
     score += 15;
-    reasons.push("TLD sospechoso");
+    reasons.push("Dominio con TLD sospechoso");
   }
 
   let level = "Bajo";
