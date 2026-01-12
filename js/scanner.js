@@ -27,15 +27,23 @@ document.getElementById("imageInput").addEventListener("change", async e => {
   const file = e.target.files[0];
   if (!file) return;
 
-  const img = await createImageBitmap(file);
+  try {
+    const img = await createImageBitmap(file);
 
-  if ("BarcodeDetector" in window) {
-    const detector = new BarcodeDetector({ formats: ["qr_code"] });
-    const codes = await detector.detect(img);
-    if (codes.length) handleScannedCode(codes[0].rawValue);
-    else alert("No se detectó QR.");
-  } else {
-    alert("El navegador no soporta lectura desde imagen.");
+    if ("BarcodeDetector" in window) {
+      const detector = new BarcodeDetector({ formats: ["qr_code"] });
+      const codes = await detector.detect(img);
+
+      if (codes.length) {
+        handleScannedCode(codes[0].rawValue);
+      } else {
+        alert("No se detectó ningún QR en la imagen.");
+      }
+    } else {
+      alert("Este navegador no soporta lectura desde imagen.");
+    }
+  } catch (err) {
+    alert("Error procesando la imagen.");
   }
 
   e.target.value = "";
