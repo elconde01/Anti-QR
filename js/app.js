@@ -1,8 +1,9 @@
 const scanBtn = document.getElementById("scanAgain");
+const clearBtn = document.getElementById("clearHistory");
+const exportBtn = document.getElementById("exportCSV");
 
 function startApp() {
   document.getElementById("result").classList.add("hidden");
-  scanBtn.classList.add("hidden");
   startScanner(onScan);
 }
 
@@ -27,7 +28,6 @@ function onScan(content, save) {
   });
 
   document.getElementById("result").classList.remove("hidden");
-  scanBtn.classList.remove("hidden");
 
   if (save) {
     saveToHistory({
@@ -41,6 +41,8 @@ function onScan(content, save) {
 }
 
 scanBtn.onclick = startApp;
+clearBtn.onclick = clearHistory;
+exportBtn.onclick = exportCSV;
 
 renderHistory();
 startApp();
