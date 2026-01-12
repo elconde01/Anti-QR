@@ -22,17 +22,24 @@ function renderHistory() {
   loadHistory().forEach(item => {
     const tr = document.createElement("tr");
 
-    if (item.level === "Alto") tr.classList.add("high-risk");
-    else if (item.level === "Medio") tr.classList.add("medium-risk");
+    tr.onclick = () => onScan(item.content, false); // reanálisis SIN guardar
+
+    const tdCode = document.createElement("td");
+    tdCode.textContent = item.content;
+
+    const tdRisk = document.createElement("td");
+    tdRisk.textContent = item.level;
+    tdRisk.className =
+      item.level === "Alto" ? "risk-high" :
+      item.level === "Medio" ? "risk-medium" : "risk-low";
+
+    const tdDesc = document.createElement("td");
+    tdDesc.textContent = item.reasons.join(" | ");
 
     const tdDate = document.createElement("td");
     tdDate.textContent = new Date(item.date).toLocaleString();
 
-    const tdContent = document.createElement("td");
-    tdContent.textContent = item.content;
-    tdContent.onclick = () => onScan(item.content);
-
-    const tdAction = document.createElement("td");
+    const tdCopy = document.createElement("td");
     const btn = document.createElement("button");
     btn.textContent = "Copiar";
     btn.className = "copy-btn";
@@ -41,11 +48,9 @@ function renderHistory() {
       copyToClipboard(item.content);
     };
 
-    tdAction.appendChild(btn);
+    tdCopy.appendChild(btn);
 
-    tr.appendChild(tdDate);
-    tr.appendChild(tdContent);
-    tr.appendChild(tdAction);
+    tr.append(tdCode, tdRisk, tdDesc, tdDate, tdCopy);
     table.appendChild(tr);
   });
 }
