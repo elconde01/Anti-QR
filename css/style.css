@@ -6,18 +6,14 @@ body {
   padding: 20px;
 }
 
-h1 {
-  color: #00e676;
-}
+h1 { color: #00e676; }
 
 #reader {
   width: 300px;
   margin: 20px auto;
 }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 #result {
   background: #1e1e1e;
@@ -30,27 +26,50 @@ h1 {
 .medium { color: #ffc107; }
 .high { color: #ff5252; }
 
-ul {
-  text-align: left;
-  max-width: 500px;
-  margin: auto;
+#historyBox {
+  margin-top: 30px;
+  background: #1e1e1e;
+  padding: 15px;
+  border-radius: 8px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-button {
-  padding: 10px 15px;
-  margin: 10px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+table {
+  width: 100%;
+  border-collapse: collapse;
   font-size: 14px;
 }
 
-#scanAgain {
-  background: #2196f3;
-  color: white;
+th, td {
+  border-bottom: 1px solid #333;
+  padding: 8px;
+  text-align: left;
 }
 
-#clearHistory {
-  background: #ff5252;
-  color: white;
+th { color: #00e676; }
+td { word-break: break-all; }
+
+tr.high-risk { background: #3a0000; }
+tr.medium-risk { background: #3a2f00; }
+
+button {
+  padding: 8px 12px;
+  margin: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
+
+#scanAgain { background: #2196f3; color: white; }
+
+.copy-btn {
+  background: #333;
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.copy-btn:hover { background: #555; }
