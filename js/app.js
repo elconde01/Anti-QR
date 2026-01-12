@@ -28,12 +28,13 @@ function onScan(result) {
   document.getElementById("result").classList.remove("hidden");
   scanBtn.classList.remove("hidden");
 
-  saveToHistory({
-    content: result,
-    level: analysis.level,
-    score: analysis.score,
-    date: new Date().toISOString()
-  });
+saveToHistory({
+  content: result,
+  type: analysis.type,
+  level: analysis.level,
+  score: analysis.score,
+  date: new Date().toISOString()
+});
 }
 
 scanBtn.onclick = startApp;
@@ -43,4 +44,5 @@ document.getElementById("exportCSV").onclick = exportToCSV;
 
 renderHistory();
 startApp();
+
 
