@@ -19,6 +19,15 @@ C<!DOCTYPE html>
 
 <div class="controls">
   <button id="scanAgain">Nuevo escaneo</button>
+  <input
+    type="file"
+    id="imageInput"
+    accept="image/*"
+    hidden
+  />
+
+  <button id="scanImageBtn">📷 Leer QR desde imagen</button>
+
   <button id="exportCSV">Exportar CSV</button>
   <button id="clearHistory">Limpiar historial</button>
 </div>
@@ -62,6 +71,7 @@ if ("serviceWorker" in navigator) {
   
 </body>
 </html>
+
 
 
 
