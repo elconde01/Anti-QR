@@ -1,38 +1,90 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: system-ui, Arial, sans-serif;
   background: #111;
   color: #eee;
-  padding: 10px;
+  margin: 0;
+  padding: 12px;
 }
 
 h1, h2 {
   text-align: center;
+  margin: 12px 0;
 }
 
-.controls, .footer-buttons {
+#scanner {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.controls,
+.footer-buttons {
   display: flex;
+  flex-direction: column;
   gap: 10px;
-  justify-content: center;
-  margin: 10px 0;
+  margin: 15px 0;
 }
 
 button {
-  padding: 8px 12px;
-  cursor: pointer;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  background: #222;
+  color: #fff;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
+button:active {
+  background: #333;
 }
 
-th, td {
-  border: 1px solid #444;
-  padding: 6px;
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Card de historial */
+.history-card {
+  background: #1b1b1b;
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid #333;
+}
+
+.history-code {
+  font-size: 14px;
   word-break: break-all;
+  margin-bottom: 8px;
 }
 
-.risk-low { color: #00e676; }
-.risk-medium { color: #ffeb3b; }
-.risk-high { color: #ff5252; }
+.history-meta {
+  font-size: 13px;
+  opacity: 0.95;
+}
+
+.history-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.risk-low {
+  color: #00e676;
+}
+
+.risk-medium {
+  color: #ffeb3b;
+}
+
+.risk-high {
+  color: #ff5252;
+}
+
+/* Desktop opcional */
+@media (min-width: 768px) {
+  body {
+    max-width: 520px;
+    margin: auto;
+  }
+}
