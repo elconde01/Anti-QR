@@ -11,44 +11,41 @@ function saveToHistory(entry) {
   renderHistory();
 }
 
-function clearHistory() {
-  localStorage.removeItem(HISTORY_KEY);
-  renderHistory();
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text);
 }
 
 function renderHistory() {
-  const list = document.getElementById("history");
-  list.innerHTML = "";
+  const table = document.getElementById("historyTable");
+  table.innerHTML = "";
 
   loadHistory().forEach(item => {
-    const li = document.createElement("li");
-    li.style.cursor = "pointer";
-    li.textContent = `[${item.level}] (${item.type}) ${item.content}`;
+    const tr = document.createElement("tr");
 
-    li.onclick = () => {
-      onScan(item.content);
+    if (item.level === "Alto") tr.classList.add("high-risk");
+    else if (item.level === "Medio") tr.classList.add("medium-risk");
+
+    const tdDate = document.createElement("td");
+    tdDate.textContent = new Date(item.date).toLocaleString();
+
+    const tdContent = document.createElement("td");
+    tdContent.textContent = item.content;
+    tdContent.onclick = () => onScan(item.content);
+
+    const tdAction = document.createElement("td");
+    const btn = document.createElement("button");
+    btn.textContent = "Copiar";
+    btn.className = "copy-btn";
+    btn.onclick = e => {
+      e.stopPropagation();
+      copyToClipboard(item.content);
     };
 
-    list.appendChild(li);
+    tdAction.appendChild(btn);
+
+    tr.appendChild(tdDate);
+    tr.appendChild(tdContent);
+    tr.appendChild(tdAction);
+    table.appendChild(tr);
   });
-}
-
-function exportToCSV() {
-  const history = loadHistory();
-  if (!history.length) return;
-
-  const header = "Fecha,Tipo,Riesgo,Score,Contenido\n";
-  const rows = history.map(h =>
-    `"${h.date}","${h.type}","${h.level}","${h.score}","${h.content.replace(/"/g, '""')}"`
-  ).join("\n");
-
-  const blob = new Blob([header + rows], { type: "text/csv" });
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "qr_history.csv";
-  a.click();
-
-  URL.revokeObjectURL(url);
 }
