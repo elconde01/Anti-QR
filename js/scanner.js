@@ -1,45 +1,42 @@
-const qrReader = new Html5Qrcode("reader");
+let qrScanner;
 
-function startScanner(onScan) {
-  qrReader.start(
-    { facingMode: "environment" },
-    { fps: 10, qrbox: 250 },
-    text => {
-      qrReader.stop();
-      onScan(text, true);
-    },
-    () => {}
-  );
+function handleScannedCode(text) {
+  const analysis = analyzeCode(text);
+  addToHistory(text, analysis);
 }
 
-document.getElementById("scanImageBtn").addEventListener("click", () => {
-  document.getElementById("imageInput").click();
-});
+document.getElementById("startScan").onclick = () => {
+  qrScanner = new Html5Qrcode("scanner");
 
-document.getElementById("imageInput").addEventListener("change", async (e) => {
+  qrScanner.start(
+    { facingMode: "environment" },
+    { fps: 10, qrbox: 250 },
+    handleScannedCode
+  );
+};
+
+document.getElementById("stopScan").onclick = () => {
+  if (qrScanner) qrScanner.stop();
+};
+
+// Escaneo desde imagen
+document.getElementById("scanImageBtn").onclick = () =>
+  document.getElementById("imageInput").click();
+
+document.getElementById("imageInput").addEventListener("change", async e => {
   const file = e.target.files[0];
   if (!file) return;
 
-  try {
-    const img = await createImageBitmap(file);
+  const img = await createImageBitmap(file);
 
-    if ("BarcodeDetector" in window) {
-      const detector = new BarcodeDetector({ formats: ["qr_code"] });
-      const codes = await detector.detect(img);
-
-      if (codes.length === 0) {
-        alert("No se detectó ningún código QR.");
-        return;
-      }
-
-      handleScannedCode(codes[0].rawValue);
-    } else {
-      alert("Tu navegador no soporta lectura desde imagen.");
-    }
-  } catch (err) {
-    console.error(err);
-    alert("Error procesando la imagen.");
-  } finally {
-    e.target.value = "";
+  if ("BarcodeDetector" in window) {
+    const detector = new BarcodeDetector({ formats: ["qr_code"] });
+    const codes = await detector.detect(img);
+    if (codes.length) handleScannedCode(codes[0].rawValue);
+    else alert("No se detectó QR.");
+  } else {
+    alert("El navegador no soporta lectura desde imagen.");
   }
+
+  e.target.value = "";
 });
