@@ -1,6 +1,6 @@
 function analyzeQR(content) {
   let score = 0;
-  let reasons = [];
+  const reasons = [];
 
   if (!content.startsWith("http")) {
     return {
@@ -34,7 +34,7 @@ function analyzeQR(content) {
 
   if (url.match(/\b(login|verify|account|secure|update)\b/)) {
     score += 20;
-    reasons.push("Contiene palabras típicas de phishing");
+    reasons.push("Palabras típicas de phishing");
   }
 
   const tlds = [".xyz", ".top", ".ru", ".tk", ".click"];
