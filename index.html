@@ -24,10 +24,20 @@
   <ul id="reasons"></ul>
 </div>
 
-<h2>Historial</h2>
-<button id="clearHistory">Limpiar historial</button>
-<button id="exportCSV">Exportar CSV</button>
-<ul id="history"></ul>
+<h2>Historial de escaneos</h2>
+
+<div id="historyBox">
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha y hora</th>
+        <th>Código escaneado</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody id="historyTable"></tbody>
+  </table>
+</div>
 
 <script src="js/analyzer.js"></script>
 <script src="js/scanner.js"></script>
