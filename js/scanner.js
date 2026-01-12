@@ -6,7 +6,7 @@ function startScanner(onScan) {
     { fps: 10, qrbox: 250 },
     text => {
       qrReader.stop();
-      onScan(text, true); // escaneo real
+      onScan(text, true);
     },
     () => {}
   );
