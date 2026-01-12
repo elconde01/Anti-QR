@@ -38,6 +38,9 @@ function onScan(result) {
 
 scanBtn.onclick = startApp;
 document.getElementById("clearHistory").onclick = clearHistory;
+document.getElementById("exportCSV").onclick = exportToCSV;
+
 
 renderHistory();
 startApp();
+
