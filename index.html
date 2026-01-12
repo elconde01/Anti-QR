@@ -52,6 +52,13 @@
 <script src="js/history.js"></script>
 <script src="js/app.js"></script>
 
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
+</script>
+  
 </body>
 </html>
+
 
