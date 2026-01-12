@@ -22,7 +22,14 @@ function renderHistory() {
 
   loadHistory().forEach(item => {
     const li = document.createElement("li");
-    li.textContent = `[${item.level}] ${item.content}`;
+    li.style.cursor = "pointer";
+    li.textContent = `[${item.level}] (${item.type}) ${item.content}`;
+
+    li.onclick = () => {
+      onScan(item.content);
+    };
+
     list.appendChild(li);
   });
 }
+
