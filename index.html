@@ -14,6 +14,7 @@
 </head>
 
 <body>
+
   <h1>🛡️ Anti-QR</h1>
 
   <div id="scanner"></div>
@@ -22,24 +23,12 @@
     <button id="startScan">📷 Escanear</button>
     <button id="stopScan">⛔ Detener</button>
     <button id="scanImageBtn">🖼️ Leer desde imagen</button>
-
     <input type="file" id="imageInput" accept="image/*" hidden>
   </div>
 
   <h2>📜 Historial</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Código escaneado</th>
-        <th>Riesgo</th>
-        <th>Resultado del análisis</th>
-        <th>Fecha y hora</th>
-        <th>Acción</th>
-      </tr>
-    </thead>
-    <tbody id="historyBody"></tbody>
-  </table>
+  <div id="historyBody" class="history-list"></div>
 
   <div class="footer-buttons">
     <button id="exportCSV">⬇️ Exportar CSV</button>
@@ -56,5 +45,6 @@
       navigator.serviceWorker.register("/Anti-QR/sw.js");
     }
   </script>
+
 </body>
 </html>
