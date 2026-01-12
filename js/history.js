@@ -11,8 +11,30 @@ function saveToHistory(entry) {
   renderHistory();
 }
 
-function copyToClipboard(text) {
-  navigator.clipboard.writeText(text);
+function clearHistory() {
+  localStorage.removeItem(HISTORY_KEY);
+  renderHistory();
+}
+
+function exportCSV() {
+  const rows = loadHistory();
+  if (!rows.length) return;
+
+  const header = ["Codigo", "Riesgo", "Resultado", "Fecha"];
+  const csv = [
+    header.join(","),
+    ...rows.map(r =>
+      `"${r.content}","${r.level}","${r.reasons.join(" | ")}","${new Date(r.date).toLocaleString()}"`
+    )
+  ].join("\n");
+
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "qr_historial.csv";
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 function renderHistory() {
@@ -21,8 +43,7 @@ function renderHistory() {
 
   loadHistory().forEach(item => {
     const tr = document.createElement("tr");
-
-    tr.onclick = () => onScan(item.content, false); // reanálisis SIN guardar
+    tr.onclick = () => onScan(item.content, false);
 
     const tdCode = document.createElement("td");
     tdCode.textContent = item.content;
@@ -45,9 +66,8 @@ function renderHistory() {
     btn.className = "copy-btn";
     btn.onclick = e => {
       e.stopPropagation();
-      copyToClipboard(item.content);
+      navigator.clipboard.writeText(item.content);
     };
-
     tdCopy.appendChild(btn);
 
     tr.append(tdCode, tdRisk, tdDesc, tdDate, tdCopy);
