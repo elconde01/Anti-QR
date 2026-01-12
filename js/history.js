@@ -1,76 +1,63 @@
-const HISTORY_KEY = "qr_history";
+const history = [];
 
-function loadHistory() {
-  return JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
-}
+function addToHistory(code, analysis) {
+  if (history.some(h => h.code === code)) return;
 
-function saveToHistory(entry) {
-  const history = loadHistory();
-  history.unshift(entry);
-  localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+  const entry = {
+    code,
+    risk: analysis.risk,
+    description: analysis.description,
+    date: new Date().toLocaleString()
+  };
+
+  history.push(entry);
   renderHistory();
 }
 
-function clearHistory() {
-  localStorage.removeItem(HISTORY_KEY);
-  renderHistory();
+function renderHistory() {
+  const tbody = document.getElementById("historyBody");
+  tbody.innerHTML = "";
+
+  history.forEach(item => {
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>${item.code}</td>
+      <td class="${riskClass(item.risk)}">${item.risk}</td>
+      <td>${item.description}</td>
+      <td>${item.date}</td>
+      <td><button onclick="copyCode('${item.code}')">📋</button></td>
+    `;
+
+    tbody.appendChild(tr);
+  });
 }
 
-function exportCSV() {
-  const rows = loadHistory();
-  if (!rows.length) return;
+function riskClass(risk) {
+  if (risk === "Alto") return "risk-high";
+  if (risk === "Medio") return "risk-medium";
+  return "risk-low";
+}
 
-  const header = ["Codigo", "Riesgo", "Resultado", "Fecha"];
-  const csv = [
-    header.join(","),
-    ...rows.map(r =>
-      `"${r.content}","${r.level}","${r.reasons.join(" | ")}","${new Date(r.date).toLocaleString()}"`
-    )
-  ].join("\n");
+function copyCode(code) {
+  navigator.clipboard.writeText(code);
+}
+
+document.getElementById("clearHistory").onclick = () => {
+  history.length = 0;
+  renderHistory();
+};
+
+document.getElementById("exportCSV").onclick = () => {
+  let csv = "Codigo,Riesgo,Descripcion,Fecha\n";
+  history.forEach(h => {
+    csv += `"${h.code}","${h.risk}","${h.description}","${h.date}"\n`;
+  });
 
   const blob = new Blob([csv], { type: "text/csv" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "qr_historial.csv";
+  a.download = "historial_qr.csv";
   a.click();
-  URL.revokeObjectURL(url);
-}
-
-function renderHistory() {
-  const table = document.getElementById("historyTable");
-  table.innerHTML = "";
-
-  loadHistory().forEach(item => {
-    const tr = document.createElement("tr");
-    tr.onclick = () => onScan(item.content, false);
-
-    const tdCode = document.createElement("td");
-    tdCode.textContent = item.content;
-
-    const tdRisk = document.createElement("td");
-    tdRisk.textContent = item.level;
-    tdRisk.className =
-      item.level === "Alto" ? "risk-high" :
-      item.level === "Medio" ? "risk-medium" : "risk-low";
-
-    const tdDesc = document.createElement("td");
-    tdDesc.textContent = item.reasons.join(" | ");
-
-    const tdDate = document.createElement("td");
-    tdDate.textContent = new Date(item.date).toLocaleString();
-
-    const tdCopy = document.createElement("td");
-    const btn = document.createElement("button");
-    btn.textContent = "Copiar";
-    btn.className = "copy-btn";
-    btn.onclick = e => {
-      e.stopPropagation();
-      navigator.clipboard.writeText(item.content);
-    };
-    tdCopy.appendChild(btn);
-
-    tr.append(tdCode, tdRisk, tdDesc, tdDate, tdCopy);
-    table.appendChild(tr);
-  });
-}
+};
