@@ -6,11 +6,11 @@ function startApp() {
   startScanner(onScan);
 }
 
-function onScan(result) {
-  const analysis = analyzeQR(result);
+function onScan(content, save) {
+  const analysis = analyzeQR(content);
 
   document.getElementById("qrType").textContent = analysis.type;
-  document.getElementById("qrContent").textContent = result;
+  document.getElementById("qrContent").textContent = content;
   document.getElementById("riskLevel").textContent =
     `${analysis.level} (${analysis.score}/100)`;
 
@@ -29,13 +29,15 @@ function onScan(result) {
   document.getElementById("result").classList.remove("hidden");
   scanBtn.classList.remove("hidden");
 
-  saveToHistory({
-    content: result,
-    type: analysis.type,
-    level: analysis.level,
-    score: analysis.score,
-    date: new Date().toISOString()
-  });
+  if (save) {
+    saveToHistory({
+      content,
+      level: analysis.level,
+      score: analysis.score,
+      reasons: analysis.reasons,
+      date: new Date().toISOString()
+    });
+  }
 }
 
 scanBtn.onclick = startApp;
