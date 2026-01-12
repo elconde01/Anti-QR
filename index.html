@@ -10,14 +10,15 @@
 <body>
 
 <h1>QR Safe Check</h1>
-<p>Escaneá un QR y analizá el riesgo sin abrir el enlace.</p>
+<p>Escaneá un QR y analizá el riesgo sin abrir el contenido.</p>
 
 <div id="reader"></div>
 
 <button id="scanAgain" class="hidden">Nuevo escaneo</button>
 
 <div id="result" class="hidden">
-  <h2>Resultado del análisis</h2>
+  <h2>Resultado</h2>
+  <p><strong>Tipo:</strong> <span id="qrType"></span></p>
   <p><strong>Contenido:</strong> <span id="qrContent"></span></p>
   <p><strong>Riesgo:</strong> <span id="riskLevel"></span></p>
   <ul id="reasons"></ul>
@@ -26,7 +27,6 @@
 <h2>Historial</h2>
 <button id="clearHistory">Limpiar historial</button>
 <button id="exportCSV">Exportar CSV</button>
-
 <ul id="history"></ul>
 
 <script src="js/analyzer.js"></script>
@@ -36,4 +36,3 @@
 
 </body>
 </html>
-
