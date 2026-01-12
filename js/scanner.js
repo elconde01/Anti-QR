@@ -8,6 +8,6 @@ function startScanner(onScan) {
       qrReader.stop();
       onScan(qrText);
     },
-    error => {}
+    () => {}
   );
 }
