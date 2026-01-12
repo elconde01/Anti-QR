@@ -1,15 +1,14 @@
-const CACHE_NAME = "qr-safe-check-v1";
+const CACHE_NAME = "qr-safe-check-v2";
 
 const FILES_TO_CACHE = [
-  "./",
-  "./index.html",
-  "./css/style.css",
-  "./js/app.js",
-  "./js/analyzer.js",
-  "./js/history.js",
-  "./js/scanner.js",
-  "./manifest.json",
-  "https://unpkg.com/html5-qrcode"
+  "/qr-safe-check/",
+  "/qr-safe-check/index.html",
+  "/qr-safe-check/css/style.css",
+  "/qr-safe-check/js/app.js",
+  "/qr-safe-check/js/analyzer.js",
+  "/qr-safe-check/js/history.js",
+  "/qr-safe-check/js/scanner.js",
+  "/qr-safe-check/manifest.json"
 ];
 
 self.addEventListener("install", e => {
