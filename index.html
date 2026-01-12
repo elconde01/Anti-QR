@@ -1,48 +1,33 @@
-C<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>QR Safe Check by El Conde</title> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Anti-QR</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111111" />
+
+  <link rel="manifest" href="/Anti-QR/manifest.json">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#00e676">
+
   <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
+
 <body>
+  <h1>🛡️ Anti-QR</h1>
 
-<h1>QR Safe Check</h1>
-<h2>by El Conde</h2>  
-<p>Escaneá un QR y analizá el riesgo sin abrirlo.</p>
+  <div id="scanner"></div>
 
-<div id="reader"></div>
+  <div class="controls">
+    <button id="startScan">📷 Escanear</button>
+    <button id="stopScan">⛔ Detener</button>
+    <button id="scanImageBtn">🖼️ Leer desde imagen</button>
 
-<div class="controls">
-  <button id="scanAgain">Nuevo escaneo</button>
-  <input
-    type="file"
-    id="imageInput"
-    accept="image/*"
-    hidden
-  />
+    <input type="file" id="imageInput" accept="image/*" hidden>
+  </div>
 
-  <button id="scanImageBtn">📷 Leer QR desde imagen</button>
+  <h2>📜 Historial</h2>
 
-  <button id="exportCSV">Exportar CSV</button>
-  <button id="clearHistory">Limpiar historial</button>
-</div>
-
-<div id="result" class="hidden">
-  <h2>Resultado</h2>
-  <p><strong>Tipo:</strong> <span id="qrType"></span></p>
-  <p><strong>Código:</strong> <span id="qrContent"></span></p>
-  <p><strong>Riesgo:</strong> <span id="riskLevel"></span></p>
-  <ul id="reasons"></ul>
-</div>
-
-<h2>Historial de escaneos</h2>
-
-<div id="historyBox">
   <table>
     <thead>
       <tr>
@@ -50,31 +35,26 @@ C<!DOCTYPE html>
         <th>Riesgo</th>
         <th>Resultado del análisis</th>
         <th>Fecha y hora</th>
-        <th>Copiar</th>
+        <th>Acción</th>
       </tr>
     </thead>
-    <tbody id="historyTable"></tbody>
+    <tbody id="historyBody"></tbody>
   </table>
-</div>
 
-<script src="js/analyzer.js"></script>
-<script src="js/scanner.js"></script>
-<script src="js/history.js"></script>
-<script src="js/app.js"></script>
+  <div class="footer-buttons">
+    <button id="exportCSV">⬇️ Exportar CSV</button>
+    <button id="clearHistory">🗑️ Limpiar historial</button>
+  </div>
 
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/qr-safe-check/sw.js");
-}
-</script>
+  <script src="js/analyzer.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/scanner.js"></script>
+  <script src="js/app.js"></script>
 
-  
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/Anti-QR/sw.js");
+    }
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
