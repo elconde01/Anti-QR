@@ -1,18 +1,19 @@
 # QR Safe Check
 
-Aplicación web 100% client-side que permite escanear códigos QR y analizar
-el riesgo del contenido sin abrir el enlace.
+Aplicación web 100% client-side para escanear códigos QR y analizar
+el riesgo del contenido sin abrir enlaces.
 
 ## Características
-- Escaneo de QR desde la cámara
+- Escaneo QR desde cámara
 - Análisis heurístico de URLs
 - Score de riesgo explicable
+- Historial local
 - Sin backend
-- Publicable en GitHub Pages
+- GitHub Pages compatible
 
 ## Limitaciones
-- No consulta bases de datos externas
+- No consulta bases externas
 - No garantiza detección total de estafas
 
 ## Uso
-Abrir `index.html` desde un servidor HTTPS (GitHub Pages).
+Publicar el repo en GitHub Pages y abrir desde HTTPS.
