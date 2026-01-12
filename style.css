@@ -1,0 +1,37 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #eee;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  color: #00e676;
+}
+
+#reader {
+  width: 300px;
+  margin: 20px auto;
+}
+
+.hidden {
+  display: none;
+}
+
+#result {
+  background: #1e1e1e;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.low { color: #00e676; }
+.medium { color: #ffc107; }
+.high { color: #ff5252; }
+
+ul {
+  text-align: left;
+  max-width: 400px;
+  margin: auto;
+}
