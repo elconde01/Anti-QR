@@ -31,7 +31,7 @@ h1 { color: #00e676; }
   background: #1e1e1e;
   padding: 15px;
   border-radius: 8px;
-  max-width: 900px;
+  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -39,24 +39,26 @@ h1 { color: #00e676; }
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 th, td {
   border-bottom: 1px solid #333;
   padding: 8px;
   text-align: left;
+  vertical-align: top;
 }
 
 th { color: #00e676; }
-td { word-break: break-all; }
 
-tr.high-risk { background: #3a0000; }
-tr.medium-risk { background: #3a2f00; }
+tr:hover { background: #222; cursor: pointer; }
+
+.risk-low { color: #00e676; }
+.risk-medium { color: #ffc107; }
+.risk-high { color: #ff5252; }
 
 button {
-  padding: 8px 12px;
-  margin: 8px;
+  padding: 6px 10px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -68,8 +70,6 @@ button {
   background: #333;
   color: white;
   font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 4px;
 }
 
 .copy-btn:hover { background: #555; }
